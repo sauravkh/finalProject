@@ -1,4 +1,6 @@
 library("ggplot2")
+library("knitr")
+library("plotly")
 
 my.ui <- fluidPage( theme = "style.css",
   
@@ -11,7 +13,7 @@ my.ui <- fluidPage( theme = "style.css",
     
     # Define the sidebar with one input
     sidebarPanel(
-      radioButtons('success.type', label = "Choose the levels of success", choices = c("Comapnies the IPO'ed" = 'ipo', "Funding round type c and above" = 'c', "Funding round type b" = 'b', "Funding round type a" = 'a', "None of the above" = 'none'), selected = 'ipo'  ),
+      radioButtons('success.type', label = "Choose the levels of success", choices = c("Comapnies the IPO'ed" = 'ipo', "Funding round type c and above" = 'c', "Funding round type b" = 'b', "Funding round type a" = 'a'), selected = 'ipo'  ),
       sliderInput('year', "Which year", min = 1901, max = 2013, value = 2013 )
       
       ,width = 3), 
@@ -19,8 +21,8 @@ my.ui <- fluidPage( theme = "style.css",
     mainPanel(
       navbarPage(strong("StartUp"),        
 
-                 tabPanel("About"),
-                 tabPanel("Degrees", plotOutput('degree.plot')),
+                 tabPanel("About", includeMarkdown("About.md")),
+                 tabPanel("Degrees",textOutput("degreeText"),br(), em(h3("Number of members with their respective degrees in the chosen funding round")),plotlyOutput('plot'), br(),em(h3("Total number of members with their respective degrees ")), plotOutput('total')),
                  tabPanel("Relationships"),
                  tabPanel("Startup Hubs"),
                  position = "static-top"

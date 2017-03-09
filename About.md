@@ -9,8 +9,8 @@ regarding investors, startups, and capital firms. We are mostly analyzing the st
 portion of the information, although combined with investor information, we were able to create a
 very dynamic set of information.
 
-In this analysis, we have decided to focus on certain strong points within companies’ development.
-These are the fields that we found to be most critical to the development of a company’s success
+In this analysis, we have decided to focus on certain strong points within companies' development.
+These are the fields that we found to be most critical to the development of a company's success
 after evaluating the data:
 
 - **Founder Education Levels**

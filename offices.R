@@ -25,11 +25,9 @@ c <- ggplot(data = series.c.offices) + geom_point(aes(x = X.latitude., y = X.lon
   theme(axis.title = element_blank(),
         axis.text = element_blank(),
         axis.ticks = element_blank())
+
 b <- ggplot(data = series.b.offices) + geom_point(aes(x = X.latitude., y = X.longitude.), size = 0.5) + labs(x=NULL, y=NULL) + 
-  theme(axis.title = element_blank(),
-        axis.text = element_blank(),
-        axis.ticks = element_blank())
-a <- ggplot(data = series.a.offices) + geom_point(aes(x = X.latitude., y = X.longitude.), size = 0.5) + labs(x=NULL, y=NULL) + 
+       geom_point(data = series.a.offices, aes(x = X.latitude., y = X.longitude.), size = 0.5) + labs(x=NULL, y=NULL) + 
   theme(axis.title = element_blank(),
         axis.text = element_blank(),
         axis.ticks = element_blank())
