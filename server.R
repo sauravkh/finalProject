@@ -63,6 +63,9 @@ my.server <- function(input, output) {
     output$r.c <- renderPlot({
       return(funding.and.relations.plot.c)
     })
+    output$label <- renderText({
+      return("Red represents companies that have IPOed, purple represents companies that have reaches series c funding, green represents series b funding, and blue series a funding.")
+    })
 }
 
 shinyServer(my.server)

@@ -27,7 +27,7 @@ my.ui <- fluidPage( theme = "style.css",
 
                  tabPanel("About", includeMarkdown("About.md")),
                  tabPanel("Degrees",textOutput("degreeText"),br(), em(h3("Number of members with their respective degrees in the chosen funding round")),plotlyOutput('plot'), br(),em(h3("Total number of members with their respective degrees ")), plotOutput('total')),
-                 tabPanel("Startup Hubs",textOutput('mapText'), br(), plotOutput('scatter')),
+                 tabPanel("Startup Hubs",textOutput('mapText'), br(), plotOutput('scatter'), textOutput('label')),
                  tabPanel("Relationships", br(),textOutput('r.text'),br(), plotOutput("r.ipo"), br(), plotOutput("r.a") , br(), plotOutput("r.b") , br(), plotOutput("r.c")),
                  position = "static-top"
 

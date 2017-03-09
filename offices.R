@@ -20,10 +20,10 @@ series.b.offices <- filter(cb_offices, X.object_id. %in% funding.rounds.b$object
 series.a.offices <- filter(cb_offices, X.object_id. %in% funding.rounds.a$object_id)
 
 everything <- ggplot(data = usa) + geom_point(aes(x = long, y = lat), size = 0.1) + labs(x=NULL, y=NULL) +
-        geom_point(data = ipo.offices, aes(x = X.longitude., y = X.latitude.), color = "red", size = 0.5) + labs(x=NULL, y=NULL) + 
-        geom_point(data = series.c.offices, aes(x = X.longitude., y = X.latitude.), color = "yellow", size = 0.5) + labs(x=NULL, y=NULL) + 
-        geom_point(data = series.b.offices, aes(x = X.longitude., y = X.latitude.), color = "green", size = 0.5) + labs(x=NULL, y=NULL) + 
-        geom_point(data = series.a.offices, aes(x = X.longitude., y = X.latitude.), color = "blue", size = 0.5) + labs(x=NULL, y=NULL) + 
+        geom_point(data = ipo.offices, aes(x = X.longitude., y = X.latitude.), color = "red", size = 2) + labs(x=NULL, y=NULL) + 
+        geom_point(data = series.c.offices, aes(x = X.longitude., y = X.latitude.), color = "purple", size = 2) + labs(x=NULL, y=NULL) + 
+        geom_point(data = series.b.offices, aes(x = X.longitude., y = X.latitude.), color = "green", size = 2) + labs(x=NULL, y=NULL) + 
+        geom_point(data = series.a.offices, aes(x = X.longitude., y = X.latitude.), color = "blue", size = 2) + labs(x=NULL, y=NULL) + 
         theme(axis.title = element_blank(),
               axis.text = element_blank(),
               axis.ticks = element_blank())
