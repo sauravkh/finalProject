@@ -1,7 +1,7 @@
 
 library("dplyr")
 
-data.folder <- "data/crunchbase_2013inCSV/"
+data.folder <- "crunchbase_2013inCSV/"
 
 cb_ipos <- read.csv(paste0(data.folder, "cb_ipos.csv"), quote = "", stringsAsFactors = FALSE)
 cb_funding.rounds <- read.csv(paste0(data.folder, "cb_funding_rounds.csv"), quote = "", stringsAsFactors = FALSE)
@@ -17,7 +17,16 @@ funding.rounds.b <- filter(cb_funding.rounds, X.funding_round_type. == "'series-
 funding.rounds.a <- filter(cb_funding.rounds, X.funding_round_type. == "'series-a'") %>% 
   select(3)
 
+c.funding.without.ipo <- !funding.rounds.c$X.object_id. %in% cb_ipos$X.object_id.
 
-c.funding.with.ipo <- !funding.rounds.c$X.object_id. %in% cb_ipos$X.object_id.
+b.funding.without.ipo.or.c <- !funding.rounds.b$X.object_id. %in% cb_ipos$X.object_id. &
+  !funding.rounds.b$X.object_id. %in% funding.rounds.c$X.object_id.
+
+a.funding.without.ipo.or.c.or.b <- !funding.rounds.a$X.object_id. %in% cb_ipos$X.object_id. &
+  !funding.rounds.a$X.object_id. %in% funding.rounds.c$X.object_id. &
+  !funding.rounds.a$X.object_id. %in% funding.rounds.b$X.object_id.
 
 funding.rounds.c <- funding.rounds.c[c.funding.with.ipo,]
+funding.rounds.b <- funding.rounds.b[b.funding.without.ipo.or.c,]
+funding.rounds.a <- funding.rounds.a[a.funding.without.ipo.or.c.or.b,]
+
