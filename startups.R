@@ -1,8 +1,11 @@
 
 library("dplyr")
-cb_ipos <- read.csv("cb_ipos.csv", quote = "", stringsAsFactors = FALSE)
-cb_funding.rounds <- read.csv("cb_funding_rounds.csv", quote = "", stringsAsFactors = FALSE)
-cb_relationships <- read.csv("cb_relationships.csv", quote = "", stringsAsFactors = FALSE)
+
+data.folder <- "data/crunchbase_2013inCSV/"
+
+cb_ipos <- read.csv(paste0(data.folder, "cb_ipos.csv"), quote = "", stringsAsFactors = FALSE)
+cb_funding.rounds <- read.csv(paste0(data.folder, "cb_funding_rounds.csv"), quote = "", stringsAsFactors = FALSE)
+cb_relationships <- read.csv(paste0(data.folder, "cb_relationships.csv"), quote = "", stringsAsFactors = FALSE)
 
 
 funding.rounds.c <- filter(cb_funding.rounds, X.funding_round_type. == "'series-c+'") %>% 
