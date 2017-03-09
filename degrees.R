@@ -11,22 +11,16 @@ companies <- select(cb_relationships, 3, 4)
 
 colnames(degrees.data) <- c("id", "object_id", "degree_type", "subject", "institution", "graduated_at")
 colnames(companies) <- c("object_id", "relationship_id")
+companies$object_id <- str_replace(companies$object_id , "'", "")
+companies$object_id <- str_replace(companies$object_id , "'", "")
+companies$relationship_id <- str_replace(companies$relationship_id , "'", "")
+companies$relationship_id <- str_replace(companies$relationship_id , "'", "")
 
-data.req <- full_join(degrees.data, companies, by = `object_id`)
-
-
-
-
-#degrees.data$object_id <- str_replace(degrees.data$object_id, "p:", "")
+degrees.data <- full_join(degrees.data, companies, by = "object_id")
 
 degrees.data <- filter(degrees.data, degree_type == "MS" | degree_type == "BS" | degree_type == "PhD" | degree_type == "MBA")
 
 data.MS <- filter(degrees.data, degree_type == "MS")
-
-data.req <- right_join(companies, data.MS, by = "object_id")
-
-
-
 data.BS <- filter(degrees.data, degree_type == "BS")
 data.PhD <- filter(degrees.data, degree_type == "MS")
 data.MBA <- filter(degrees.data, degree_type == "MS")
@@ -51,26 +45,27 @@ number.total <- data.total[1,1]
 
 percent.dropout <- number.of.dropouts / number.total * 100
 
-funding.rounds.a <-  str_replace(funding.rounds.a, "c:", "")
-funding.rounds.a <-  str_replace(funding.rounds.a, "'", "")
-funding.rounds.a <-  str_replace(funding.rounds.a, "'", "")
+funding.rounds.a <- str_replace(funding.rounds.a, "'", "")
+funding.rounds.b <- str_replace(funding.rounds.b, "'", "")
+funding.rounds.c <- str_replace(funding.rounds.c, "'", "")
 
-funding.rounds.b <-  str_replace(funding.rounds.b, "c:", "")
-funding.rounds.b <-  str_replace(funding.rounds.b, "'", "")
-funding.rounds.b <-  str_replace(funding.rounds.b, "'", "")
+funding.rounds.a <- str_replace(funding.rounds.a, "'", "")
+funding.rounds.b <- str_replace(funding.rounds.b, "'", "")
+funding.rounds.c <- str_replace(funding.rounds.c, "'", "")
 
-funding.rounds.c <-  str_replace(funding.rounds.c, "c:", "")
-funding.rounds.c <-  str_replace(funding.rounds.c, "'", "")
-funding.rounds.c <-  str_replace(funding.rounds.c, "'", "")
 
-success.a <- degrees.data$object_id %in% funding.rounds.a
-success.b <- degrees.data$object_id %in% funding.rounds.b
-success.c <- degrees.data$object_id %in% funding.rounds.c
 
-success.a.data <- degrees.data[success.a, ]
-success.b.data <- degrees.data[success.b, ]
-success.c.data <- degrees.data[success.c, ]
+success.BS.a <- data.BS$object_id %in% funding.rounds.a
+success.BS.a.data <- degrees.data[success.BS.a, ]
 
+success.MS.a <- data.MS$object_id %in% funding.rounds.a
+success.MS.a.data <- degrees.data[success.MS.a, ]
+
+success.MBA.a <- data.MBA$object_id %in% funding.rounds.a
+success.MBA.a.data <- degrees.data[success.MBA.a, ]
+
+success.PhD.a <- data.PhD$object_id %in% funding.rounds.a
+success.PhD.a.data <- degrees.data[success.PhD.a, ]
 
 
 
