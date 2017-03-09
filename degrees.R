@@ -2,7 +2,7 @@ library("dplyr")
 library("ggplot2")
 library("plotly")
 
-degrees.data <- read.csv(file="data/crunchbase_2013inCSV/cb_degrees-1.csv", header=TRUE)
+degrees.data <- read.csv(file="crunchbase_2013inCSV/cb_degrees-1.csv", header=TRUE)
 
 degrees.data <- select(degrees.data, 1, 2, 3, 4, 5, 6)
 colnames(degrees.data) <- c("id", "object_id", "degree_type", "subject", "institution", "graduated_at")
