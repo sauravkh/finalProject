@@ -10,6 +10,7 @@ cb_offices <- filter(cb_offices, X.country_code. == "'USA'", X.latitude. != "NUL
   arrange(X.object_id.)
 cb_offices$X.longitude. <- as.numeric(cb_offices$X.longitude.)
 cb_offices$X.latitude. <- as.numeric(cb_offices$X.latitude.)
+cb_offices <- filter(cb_offices, X.longitude. > -140, X.longitude. < -50, X.latitude. > 22, X.latitude. < 50)
 
 usa <- map_data("usa")
 
@@ -22,7 +23,7 @@ everything <- ggplot(data = usa) + geom_point(aes(x = long, y = lat), size = 0.1
         geom_point(data = ipo.offices, aes(x = X.longitude., y = X.latitude.), color = "red", size = 0.5) + labs(x=NULL, y=NULL) + 
         geom_point(data = series.c.offices, aes(x = X.longitude., y = X.latitude.), color = "yellow", size = 0.5) + labs(x=NULL, y=NULL) + 
         geom_point(data = series.b.offices, aes(x = X.longitude., y = X.latitude.), color = "green", size = 0.5) + labs(x=NULL, y=NULL) + 
-        geom_point(data = series.a.offices, aes(x = X.longitude., y = X.latitude.), color = "blue", size = 0.5) + labs(x=NULL, y=NULL) + 
-        theme(axis.title = element_blank(),
-              axis.text = element_blank(),
-              axis.ticks = element_blank())
+        geom_point(data = series.a.offices, aes(x = X.longitude., y = X.latitude.), color = "blue", size = 0.5) + labs(x=NULL, y=NULL) #+ 
+        #theme(axis.title = element_blank(),
+         #     axis.text = element_blank(),
+          #    axis.ticks = element_blank())
