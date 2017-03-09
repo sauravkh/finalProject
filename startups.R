@@ -64,8 +64,10 @@ colnames(funding.ipo) <- c("object_id", "amount")
 data.complete <- full_join(relationships.ipo, funding.ipo, na.rm = TRUE)
 
 funding.and.relations.plot.ipos <- ggplot(data = data.complete) +
-  geom_point(mapping = aes(x = Number, y = amount)) +
-  theme(axis.title = element_blank())
+  geom_point(mapping = aes(x = Number, y = amount)) + 
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) + 
+  labs(title="IPO & Relationships", y = "Amount of Funding", x = "Number of Relationships")
 
 #plotting relationships vs. funding of series c companies
 colnames(relationships.funding.c) <- c("object_id", "Number")
@@ -74,8 +76,10 @@ colnames(funding.rounds.c) <- c("object_id", "amount")
 data.complete <- full_join(relationships.funding.c, funding.rounds.c, na.rm = TRUE)
 
 funding.and.relations.plot.c <- ggplot(data = data.complete) +
-  geom_point(mapping = aes(x = Number, y = amount)) +
-  theme(axis.title = element_blank())
+  geom_point(mapping = aes(x = Number, y = amount)) + 
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) + 
+  labs(title="C Funding & Relationships", y = "Amount of Funding", x = "Number of Relationships")
 
 
 #plotting relationships vs. funding of series c companies
@@ -85,8 +89,10 @@ colnames(funding.rounds.b) <- c("object_id", "amount")
 data.complete <- full_join(relationships.funding.b, funding.rounds.b, na.rm = TRUE)
 
 funding.and.relations.plot.b <- ggplot(data = data.complete) +
-  geom_point(mapping = aes(x = Number, y = amount)) +
-  theme(axis.title = element_blank())
+  geom_point(mapping = aes(x = Number, y = amount)) + 
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) + 
+  labs(title="B Funding & Relationships", y = "Amount of Funding", x = "Number of Relationships")
 
 
 #plotting relationships vs. funding of series a companies
@@ -96,7 +102,9 @@ colnames(funding.rounds.a) <- c("object_id", "amount")
 data.complete <- full_join(relationships.funding.a, funding.rounds.a, na.rm = TRUE)
 
 funding.and.relations.plot.a <- ggplot(data = data.complete) +
-  geom_point(mapping = aes(x = Number, y = amount)) +
-  theme(axis.title = element_blank())
+  geom_point(mapping = aes(x = Number, y = amount))  + 
+  theme(axis.text = element_blank(),
+        axis.ticks = element_blank()) + 
+  labs(title="A Funding & Relationships", y = "Amount of Funding", x = "Number of Relationships")
 
 

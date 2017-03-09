@@ -48,7 +48,7 @@ my.server <- function(input, output) {
     })
     
     output$r.text <- renderText({
-      return("Here are scatter plots of the different funding rounds to show the number of relatinships (x - axis) vs the amount of funding (y - axis) for differennt companies.")
+      return("Here are scatter plots of the different funding rounds to show the number of relationships (x - axis) vs the amount of funding (y - axis) for differennt companies.")
     })
     
     output$r.ipo <- renderPlot({
