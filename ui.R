@@ -6,8 +6,12 @@ my.ui <- fluidPage( theme = "style.css",
   
                  
   # Give the page a title
-  titlePanel("Startups...."),
-  
+  titlePanel("StartUp"),
+  # Displays intro text
+  p(h2(textOutput('user'))),
+  # creates a dialog for user name input
+  modalDialog(h3("Hey, what's your name?"),textInput("user", label = "",placeholder = 'Type here..'), title = NULL, footer = modalButton("Let me in"),
+              size = "s", easyClose = FALSE, fade = TRUE),
   # Generate a row with a sidebar
   sidebarLayout(      
     
@@ -23,8 +27,8 @@ my.ui <- fluidPage( theme = "style.css",
 
                  tabPanel("About", includeMarkdown("About.md")),
                  tabPanel("Degrees",textOutput("degreeText"),br(), em(h3("Number of members with their respective degrees in the chosen funding round")),plotlyOutput('plot'), br(),em(h3("Total number of members with their respective degrees ")), plotOutput('total')),
-                 tabPanel("Startup Hubs", br(), plotOutput('scatter')),
-                 tabPanel("Relationships", br(), plotOutput("r.ipo"), br(), plotOutput("r.a") , br(), plotOutput("r.b") , br(), plotOutput("r.c")),
+                 tabPanel("Startup Hubs",textOutput('mapText'), br(), plotOutput('scatter')),
+                 tabPanel("Relationships", br(),textOutput('r.text'),br(), plotOutput("r.ipo"), br(), plotOutput("r.a") , br(), plotOutput("r.b") , br(), plotOutput("r.c")),
                  position = "static-top"
 
       )

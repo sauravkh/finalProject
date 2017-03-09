@@ -33,11 +33,24 @@ my.server <- function(input, output) {
       return(plot.total)
     })
     
+    output$user <- renderText({
+      answer <- paste0("Hi " ,input$user , ", this application helps you navigate your way through our visulatisations on the exhaustive data sets from crunchbase to learn more about how a startup grows and what myths about startup success are statistically true or not. ")
+      return(answer)
+    })
+    
     output$degreeText <- renderText({
       
       return("It can be seen that the ratio of MBAs in successful start ups went up as the start ups proceeded in the funding rounds which implies that as the company grows it tends to employ more MBA graduates")
     })
-
+    
+    output$mapText <- renderText({
+      return("What we have plotted is a map of startups in the USA according to their success rate. Companies that IPOed are displayed in red. Companies that got to series c funding but did not IPO are displayed in yellow. Companies that got to series b funding but not series c are displayed in green. Finally, companies that got to series a funding but not series b are displayed in blue. We have outlined our graph with the border of the U.S. in black to make it easier to visualize. The obvious startup hubs are the Seattle area, Silicon Valley, Southern California, and the New England coast. The number of startup companies found elsewhere is to be expected, as startup hubs tend to attract future startups. Notice that few of the companies founded out of startup hubs were very successful as most of these points are blue or green. Feel free to zoom in on the startup hub areas so that you can get a better idea of how success rate may be influenced by location.")
+    })
+    
+    output$r.text <- renderText({
+      return("Here are scatter plots of the different funding rounds to show the number of relatinships (x - axis) vs the amount of funding (y - axis) for differennt companies.")
+    })
+    
     output$r.ipo <- renderPlot({
       return(funding.and.relations.plot.ipos)
     })
