@@ -2,6 +2,7 @@ library("ggplot2")
 library("knitr")
 library("plotly")
 source("degrees.R")
+source("offices.R")
 my.server <- function(input, output) { 
 
   table <- reactive({
@@ -15,6 +16,11 @@ my.server <- function(input, output) {
       return(success.c.plot)
     }
 
+  })
+  
+
+  output$scatter <- renderPlot({
+    return(everything)
   })
 
   # generates a plot of measurments vs stats
@@ -31,26 +37,19 @@ my.server <- function(input, output) {
       
       return("It can be seen that the ratio of MBAs in successful start ups went up as the start ups proceeded in the funding rounds which implies that as the company grows it tends to employ more MBA graduates")
     })
-  # } else if(input$success.type == 'b'){
-  #   output$plot <- renderPlotly({
-  #     return(success.b.plot)
-  #   })
-  # } else if(input$success.type == 'c'){
-  #   output$plot <- renderPlotly({
-  #     return(success.c.plot)
-  #   })
-  # } else if(input$success.type == 'ipo'){
-  #   output$plot <- renderPlotly({
-  #     return(success.ipo.plot)
-  #   })
-  # }  else{
-  #   output$plot <- renderPlot({
-  #     return(total.plot)
-  #   })
-  # }
-  
 
-  
+    output$r.ipo <- renderPlot({
+      return(funding.and.relations.plot.ipos)
+    })
+    output$r.a <- renderPlot({
+      return(funding.and.relations.plot.a)
+    })
+    output$r.b <- renderPlot({
+      return(funding.and.relations.plot.b)
+    })
+    output$r.c <- renderPlot({
+      return(funding.and.relations.plot.c)
+    })
 }
 
 shinyServer(my.server)
