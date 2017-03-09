@@ -15,12 +15,12 @@ my.ui <- fluidPage(
     mainPanel(
        
       tabsetPanel(
-        tabPanel("Tab 1"),
-        tabPanel("Tab 2"),
-        tabPanel("Tab 3")
+        tabPanel("About"),
+        tabPanel("Degrees"),
+        tabPanel("Relationships"),
+        tabPanel("Startup Hubs")
         
-      ),
-      p("main panel goes here") 
+      )
     )
     
   )
