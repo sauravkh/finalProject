@@ -17,7 +17,19 @@ series.a.offices <- filter(cb_offices, X.object_id. %in% funding.rounds.a$object
 
 #ggplot(data = cb_offices) + geom_point(aes(x = X.latitude., y = X.longitude.), size = 0.5) + labs(x=NULL, y=NULL)
 
-ipo <- ggplot(data = ipo.offices) + geom_point(aes(x = X.latitude., y = X.longitude.), size = 0.5) + labs(x=NULL, y=NULL)
-c <- ggplot(data = series.c.offices) + geom_point(aes(x = X.latitude., y = X.longitude.), size = 0.5) + labs(x=NULL, y=NULL)
-b <- ggplot(data = series.b.offices) + geom_point(aes(x = X.latitude., y = X.longitude.)) + labs(x=NULL, y=NULL)
-a <- ggplot(data = series.a.offices) + geom_point(aes(x = X.latitude., y = X.longitude.)) + labs(x=NULL, y=NULL)
+ipo <- ggplot(data = ipo.offices) + geom_point(aes(x = X.latitude., y = X.longitude.), size = 0.5) + labs(x=NULL, y=NULL) + 
+  theme(axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+c <- ggplot(data = series.c.offices) + geom_point(aes(x = X.latitude., y = X.longitude.), size = 0.5) + labs(x=NULL, y=NULL) + 
+  theme(axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+b <- ggplot(data = series.b.offices) + geom_point(aes(x = X.latitude., y = X.longitude.), size = 0.5) + labs(x=NULL, y=NULL) + 
+  theme(axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
+a <- ggplot(data = series.a.offices) + geom_point(aes(x = X.latitude., y = X.longitude.), size = 0.5) + labs(x=NULL, y=NULL) + 
+  theme(axis.title = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank())
