@@ -41,10 +41,18 @@ remove(c.funding.without.ipo, b.funding.without.ipo.or.c, a.funding.without.ipo.
 #convert them in a data frame
 funding.rounds.a <- data.frame(funding.rounds.a)
 funding.rounds.b <- data.frame(funding.rounds.b)
-funding.rounds.b <- data.frame(funding.rounds.c)
+funding.rounds.c <- data.frame(funding.rounds.c)
 
-relationships <- filter(cb_relationships, grepl("c:", cb_relationships[4])) %>% 
-  group_by(X.relationship_object_id.) %>% 
+relationships <- group_by(cb_relationships, X.relationship_object_id.) %>% 
   summarise(Number = n())
 
-funding.rounds.c <- mutate(relationships, Number)
+relationships.ipo <- filter(relationships, relationships$X.relationship_object_id. %in% cb_ipos$X.object_id.) 
+relationships.funding.a <- filter(relationships, relationships$X.relationship_object_id. %in% funding.rounds.a$funding.rounds.a)
+relationships.funding.b <- filter(relationships, relationships$X.relationship_object_id. %in% funding.rounds.b$funding.rounds.b)
+relationships.funding.c <- filter(relationships, relationships$X.relationship_object_id. %in% funding.rounds.c$funding.rounds.c)
+none <- !relationships$X.relationship_object_id. %in% funding.rounds.a$funding.rounds.a & 
+        !relationships$X.relationship_object_id. %in% funding.rounds.b$funding.rounds.b &
+        !relationships$X.relationship_object_id. %in% funding.rounds.c$funding.rounds.c &
+        !relationships$X.relationship_object_id. %in% cb_ipos$X.object_id.
+
+nuun <- relationships[none,]
