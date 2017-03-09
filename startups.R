@@ -38,6 +38,11 @@ funding.rounds.a <- funding.rounds.a[a.funding.without.ipo.or.c.or.b,]
 #remove no longer necessary variables
 remove(c.funding.without.ipo, b.funding.without.ipo.or.c, a.funding.without.ipo.or.c.or.b)
 
+#convert them in a data frame
+funding.rounds.a <- data.frame(funding.rounds.a)
+funding.rounds.b <- data.frame(funding.rounds.b)
+funding.rounds.b <- data.frame(funding.rounds.c)
+
 relationships <- filter(cb_relationships, grepl("c:", cb_relationships[4])) %>% 
   group_by(X.relationship_object_id.) %>% 
   summarise(Number = n())
