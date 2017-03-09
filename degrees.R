@@ -22,14 +22,14 @@ degrees.data <- filter(degrees.data, degree_type == "MS" | degree_type == "BS" |
 
 data.MS <- filter(degrees.data, degree_type == "MS")
 data.BS <- filter(degrees.data, degree_type == "BS")
-data.PhD <- filter(degrees.data, degree_type == "MS")
-data.MBA <- filter(degrees.data, degree_type == "MS")
+data.PhD <- filter(degrees.data, degree_type == "PhD")
+data.MBA <- filter(degrees.data, degree_type == "MBA")
 
 
 summary <- group_by(degrees.data, degree_type) %>%
   summarise(Number = n())
 
-p <- ggplot(data = degrees.data) +
+plot.total <- ggplot(data = degrees.data) +
   geom_bar(mapping = aes(x = `degree_type`))
 
 dropout <- filter(degrees.data, graduated_at == "NULL")
@@ -45,27 +45,130 @@ number.total <- data.total[1,1]
 
 percent.dropout <- number.of.dropouts / number.total * 100
 
-funding.rounds.a <- str_replace(funding.rounds.a, "'", "")
-funding.rounds.b <- str_replace(funding.rounds.b, "'", "")
-funding.rounds.c <- str_replace(funding.rounds.c, "'", "")
+funding.rounds.a$object_id <- str_replace(funding.rounds.a$object_id, "'", "")
+funding.rounds.b$object_id <- str_replace(funding.rounds.b$object_id, "'", "")
+funding.rounds.c$object_id <- str_replace(funding.rounds.c$object_id, "'", "")
+funding.ipo$object_id <- str_replace(funding.ipo$object_id, "'", "")
 
-funding.rounds.a <- str_replace(funding.rounds.a, "'", "")
-funding.rounds.b <- str_replace(funding.rounds.b, "'", "")
-funding.rounds.c <- str_replace(funding.rounds.c, "'", "")
+funding.rounds.a$object_id <- str_replace(funding.rounds.a$object_id, "'", "")
+funding.rounds.b$object_id <- str_replace(funding.rounds.b$object_id, "'", "")
+funding.rounds.c$object_id <- str_replace(funding.rounds.c$object_id, "'", "")
+funding.ipo$object_id <- str_replace(funding.ipo$object_id, "'", "")
+
+
+colnames(funding.rounds.a) <- c("relationship_id", "amount")
+colnames(funding.rounds.b) <- c("relationship_id", "amount")
+colnames(funding.rounds.c) <- c("relationship_id", "amount")
+colnames(funding.ipo) <- c("relationship_id", "amount")
+
+success.BS.a.data <- full_join(data.BS, funding.rounds.a, na.rm = TRUE) %>%
+  na.omit()
+
+success.MS.a.data <- full_join(data.MS, funding.rounds.a, na.rm = TRUE) %>%
+  na.omit()
+
+success.MBA.a.data <- full_join(data.MBA, funding.rounds.a, na.rm = TRUE) %>%
+  na.omit()
+
+success.PhD.a.data <- full_join(data.PhD, funding.rounds.a, na.rm = TRUE) %>%
+  na.omit()
+
+
+number.BS.success.a <- summarise(success.BS.a.data, n())[1,1]
+number.MBA.success.a <- summarise(success.MBA.a.data, n())[1,1]
+number.MS.success.a <- summarise(success.MS.a.data, n())[1,1]
+number.PhD.success.a <- summarise(success.PhD.a.data, n())[1,1]
+
+
+success.a.plot <- plot_ly(
+  x = c("BS", "MBA", "MS", "PhD"),
+  y = c(number.BS.success.a, number.MBA.success.a, number.MS.success.a, number.PhD.success.a),
+  name = "Success Rate and education",
+  type = "bar"
+)
+
+
+success.BS.ipo.data <- full_join(data.BS, funding.ipo, na.rm = TRUE) %>%
+  na.omit()
+
+success.MS.ipo.data <- full_join(data.MS, funding.ipo, na.rm = TRUE) %>%
+  na.omit()
+
+success.MBA.ipo.data <- full_join(data.MBA, funding.ipo, na.rm = TRUE) %>%
+  na.omit()
+
+success.PhD.ipo.data <- full_join(data.PhD, funding.ipo, na.rm = TRUE) %>%
+  na.omit()
+
+
+number.BS.success.ipo <- summarise(success.BS.ipo.data, n())[1,1]
+number.MBA.success.ipo <- summarise(success.MBA.ipo.data, n())[1,1]
+number.MS.success.ipo <- summarise(success.MS.ipo.data, n())[1,1]
+number.PhD.success.ipo <- summarise(success.PhD.ipo.data, n())[1,1]
+
+
+success.ipo.plot <- plot_ly(
+  x = c("BS", "MBA", "MS", "PhD"),
+  y = c(number.BS.success.ipo, number.MBA.success.ipo, number.MS.success.ipo, number.PhD.success.ipo),
+  name = "Success Rate and education",
+  type = "bar"
+)
+
+success.BS.b.data <- full_join(data.BS, funding.rounds.b, na.rm = TRUE) %>%
+  na.omit()
+
+success.MS.b.data <- full_join(data.MS, funding.rounds.b, na.rm = TRUE) %>%
+  na.omit()
+
+success.MBA.b.data <- full_join(data.MBA, funding.rounds.b, na.rm = TRUE) %>%
+  na.omit()
+
+success.PhD.b.data <- full_join(data.PhD, funding.rounds.b, na.rm = TRUE) %>%
+  na.omit()
+
+
+number.BS.success.b <- summarise(success.BS.b.data, n())[1,1]
+number.MBA.success.b <- summarise(success.MBA.b.data, n())[1,1]
+number.MS.success.b <- summarise(success.MS.b.data, n())[1,1]
+number.PhD.success.b <- summarise(success.PhD.b.data, n())[1,1]
+
+
+success.b.plot <- plot_ly(
+  x = c("BS", "MBA", "MS", "PhD"),
+  y = c(number.BS.success.b, number.MBA.success.b, number.MS.success.b, number.PhD.success.b),
+  name = "Success Rate and education",
+  type = "bar"
+)
+
+
+success.BS.c.data <- full_join(data.BS, funding.rounds.c, na.rm = TRUE) %>%
+  na.omit()
+
+success.MS.c.data <- full_join(data.MS, funding.rounds.c, na.rm = TRUE) %>%
+  na.omit()
+
+success.MBA.c.data <- full_join(data.MBA, funding.rounds.c, na.rm = TRUE) %>%
+  na.omit()
+
+success.PhD.c.data <- full_join(data.PhD, funding.rounds.c, na.rm = TRUE) %>%
+  na.omit()
+
+
+number.BS.success.c <- summarise(success.BS.c.data, n())[1,1]
+number.MBA.success.c <- summarise(success.MBA.c.data, n())[1,1]
+number.MS.success.c <- summarise(success.MS.c.data, n())[1,1]
+number.PhD.success.c <- summarise(success.PhD.c.data, n())[1,1]
+
+
+success.c.plot <- plot_ly(
+  x = c("BS", "MBA", "MS", "PhD"),
+  y = c(number.BS.success.c, number.MBA.success.c, number.MS.success.c, number.PhD.success.c),
+  name = "Success Rate and education",
+  type = "bar"
+)
 
 
 
-success.BS.a <- data.BS$object_id %in% funding.rounds.a
-success.BS.a.data <- degrees.data[success.BS.a, ]
-
-success.MS.a <- data.MS$object_id %in% funding.rounds.a
-success.MS.a.data <- degrees.data[success.MS.a, ]
-
-success.MBA.a <- data.MBA$object_id %in% funding.rounds.a
-success.MBA.a.data <- degrees.data[success.MBA.a, ]
-
-success.PhD.a <- data.PhD$object_id %in% funding.rounds.a
-success.PhD.a.data <- degrees.data[success.PhD.a, ]
 
 
 
