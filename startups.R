@@ -6,7 +6,9 @@ data.folder <- "crunchbase_2013inCSV/"
 cb_ipos <- read.csv(paste0(data.folder, "cb_ipos.csv"), quote = "", stringsAsFactors = FALSE)
 cb_funding.rounds <- read.csv(paste0(data.folder, "cb_funding_rounds.csv"), quote = "", stringsAsFactors = FALSE)
 cb_relationships <- read.csv(paste0(data.folder, "cb_relationships.csv"), quote = "", stringsAsFactors = FALSE)
-cb_funding.rounds <- filter(cb_funding.rounds, X.funding_round_type. != "", X.raised_amount_usd. != "NULL")
+cb_funding.rounds <- filter(cb_funding.rounds, X.object_id. != "", X.funding_round_type. != "", X.raised_amount_usd. != "NULL")
+cb_relationships <- filter(cb_relationships, X.relationship_object_id. != "")
+
 
 funding.ipo <- filter(cb_funding.rounds, X.object_id. %in% cb_ipos$X.object_id.)%>% 
   select(3, 7)
@@ -44,10 +46,10 @@ remove(c.funding.without.ipo, b.funding.without.ipo.or.c, a.funding.without.ipo.
 relationships <- group_by(cb_relationships, X.relationship_object_id.) %>% 
   summarise(Number = n())
 
-relationships.ipo <- filter(relationships, relationships$X.relationship_object_id. %in% cb_ipos$X.object_id.) 
-relationships.funding.a <- filter(relationships, relationships$X.relationship_object_id. %in% funding.rounds.a$X.object_id.)
-relationships.funding.b <- filter(relationships, relationships$X.relationship_object_id. %in% funding.rounds.b$X.object_id.)
-relationships.funding.c <- filter(relationships, relationships$X.relationship_object_id. %in% funding.rounds.c$X.object_id.)
+relationships.ipo <- filter(relationships, relationships$X.relationship_object_id. %in% cb_ipos$X.object_id., Number < 100) 
+relationships.funding.a <- filter(relationships, relationships$X.relationship_object_id. %in% funding.rounds.a$X.object_id., Number < 30)
+relationships.funding.b <- filter(relationships, relationships$X.relationship_object_id. %in% funding.rounds.b$X.object_id., Number < 25)
+relationships.funding.c <- filter(relationships, relationships$X.relationship_object_id. %in% funding.rounds.c$X.object_id., Number < 40)
 none <- !relationships$X.relationship_object_id. %in% funding.rounds.a$X.object_id. & 
         !relationships$X.relationship_object_id. %in% funding.rounds.b$X.object_id. &
         !relationships$X.relationship_object_id. %in% funding.rounds.c$X.object_id. &
@@ -61,7 +63,7 @@ colnames(funding.ipo) <- c("object_id", "amount")
 
 data.complete <- full_join(relationships.ipo, funding.ipo, na.rm = TRUE)
 
-ggplot(data = data.complete) +
+funding.and.relations.plot.ipos <- ggplot(data = data.complete) +
   geom_point(mapping = aes(x = Number, y = amount)) +
   theme(axis.title = element_blank(),
         axis.text = element_blank())
@@ -72,7 +74,7 @@ colnames(funding.rounds.c) <- c("object_id", "amount")
 
 data.complete <- full_join(relationships.funding.c, funding.rounds.c, na.rm = TRUE)
 
-ggplot(data = data.complete) +
+funding.and.relations.plot.c <- ggplot(data = data.complete) +
   geom_point(mapping = aes(x = Number, y = amount)) +
   theme(axis.title = element_blank(),
         axis.text = element_blank())
@@ -84,7 +86,7 @@ colnames(funding.rounds.b) <- c("object_id", "amount")
 
 data.complete <- full_join(relationships.funding.b, funding.rounds.b, na.rm = TRUE)
 
-ggplot(data = data.complete) +
+funding.and.relations.plot.b <- ggplot(data = data.complete) +
   geom_point(mapping = aes(x = Number, y = amount)) +
   theme(axis.title = element_blank(),
         axis.text = element_blank())
@@ -96,10 +98,9 @@ colnames(funding.rounds.a) <- c("object_id", "amount")
 
 data.complete <- full_join(relationships.funding.a, funding.rounds.a, na.rm = TRUE)
 
-ggplot(data = data.complete) +
+funding.and.relations.plot.a <- ggplot(data = data.complete) +
   geom_point(mapping = aes(x = Number, y = amount)) +
   theme(axis.title = element_blank(),
         axis.text = element_blank())
-
 
 
